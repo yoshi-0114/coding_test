@@ -1,7 +1,7 @@
 # TODOアプリ
 
 ## 前提条件
-・Docker
+・Docker  
 ・Docker Compose
 
 ## 起動方法
