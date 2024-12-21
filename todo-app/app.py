@@ -86,7 +86,10 @@ def create_task():
 # 特定のタスクを取得
 @app.route('/api/v1/tasks/<int:id>', methods=['GET'])
 def get_task(id):
-    task = Task.query.get_or_404(id)
+    task = Task.query.get(id)
+    if task is None:
+        return make_response('Task not found', 404)
+        
     response = make_response(json.dumps({
         'id': task.id,
         'title': task.title,
@@ -101,7 +104,7 @@ def get_task(id):
 def update_task(id):
     task = Task.query.get(id)
     if not task:
-        return jsonify({'error': 'タスクが見つかりません'}), 404
+        return make_response('Task not found', 404)
     
     try:
         data = request.get_json()
@@ -134,7 +137,7 @@ def update_task(id):
 def delete_task(id):
     task = Task.query.get(id)
     if not task:
-        return jsonify({'error': 'タスクが見つかりません'}), 404
+        return make_response('Task not found', 404)
     
     # タスクをデータベースから削除
     db.session.delete(task)
