@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y curl && \
     curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar -xzv -C /usr/local/bin
 
 # ポートの設定
-EXPOSE 5000
+EXPOSE 8080
 
 # エントリーポイントを設定
-ENTRYPOINT ["dockerize", "-wait", "tcp://db:3306", "-timeout", "1m", "python", "app.py"]
+ENTRYPOINT ["dockerize", "-wait", "tcp://db:3306", "-timeout", "60s", "python", "app.py"]
